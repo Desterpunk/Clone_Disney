@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import {
-  selectUserEmail,
   selectUserName,
   selectUserPhoto,
   setSignOutState,
@@ -36,6 +36,9 @@ const Logo = styled.div`
   img {
     display: block;
     width: 100%;
+  }
+  &:hover {
+    cursor: pointer;
   }
 `;
 
@@ -124,11 +127,56 @@ const UserImg = styled.img`
   height: 100%;
 `;
 
+const DropDown = styled.div`
+  position: absolute;
+  top: 48px;
+  right: 0px;
+  background: rgb(19, 19, 19);
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
+  padding: 10px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  width: 100px;
+  opacity: 0;
+`;
+
+const SignOut = styled.div`
+  position: relative;
+  height: 48px;
+  width: 48px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  ${UserImg} {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 1s;
+    }
+  }
+`;
+
 function Header() {
   const dispatch = useDispatch();
   const history = useHistory();
   const userName = useSelector(selectUserName);
   const userPhoto = useSelector(selectUserPhoto);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user);
+      }
+    });
+    //eslint-disable-next-line
+  }, [userName]);
 
   const setUser = (user) => {
     dispatch(
@@ -139,6 +187,14 @@ function Header() {
       })
     );
   };
+
+  const handleLogoAction = () => {
+    if(!userName) {
+      history.push("/");
+    } else {
+      history.push("/home")
+    }
+  }
 
   const handleAuth = () => {
     auth
@@ -151,44 +207,57 @@ function Header() {
       });
   };
 
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        dispatch(setSignOutState());
+        history.push("/");
+      })
+      .catch((error) => alert(error.message));
+  };
+
   return (
     <Nav>
-      <Logo>
-        <a href="/">
-          <img src="/images/logo.svg" alt="Disney+" />
-        </a>
+      <Logo onClick={handleLogoAction}>
+        <img src="/images/logo.svg" alt="Disney+" />
       </Logo>
       {!userName ? (
         <Login onClick={handleAuth}>Login</Login>
       ) : (
         <>
           <NavMenu>
-            <a href="/home">
+            <Link to="/home">
               <img src="/images/home-icon.svg" alt="HOME" />
               <span>HOME</span>
-            </a>
-            <a href="/home">
+            </Link>
+            <Link to="/search">
               <img src="/images/search-icon.svg" alt="SEARCH" />
               <span>SEARCH</span>
-            </a>
-            <a href="/home">
+            </Link>
+            <Link to="/watchlist">
               <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
               <span>WATCHLIST</span>
-            </a>
-            <a href="/home">
+            </Link>
+            <Link to="/originals">
               <img src="/images/original-icon.svg" alt="ORIGINALS" />
               <span>ORIGINALS</span>
-            </a>
-            <a href="/home">
+            </Link>
+            <Link to="/movies">
               <img src="/images/movie-icon.svg" alt="MOVIES" />
               <span>MOVIES</span>
-            </a>
-            <a href="/home">
+            </Link>
+            <Link to="/series">
               <img src="/images/series-icon.svg" alt="SERIES" />
               <span>SERIES</span>
-            </a>
+            </Link>
           </NavMenu>
-          <UserImg src={userPhoto} alt={userName} />
+          <SignOut>
+            <UserImg src={userPhoto} alt={userName} />
+            <DropDown>
+              <span onClick={handleSignOut}>Sign out</span>
+            </DropDown>
+          </SignOut>
         </>
       )}
     </Nav>
