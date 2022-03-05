@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import ImgSlider from "./ImgSlider";
 
 const Container = styled.main`
   position: relative;
@@ -22,18 +23,8 @@ const Container = styled.main`
 function Home() {
   return (
     <Container>
-      <h2>Hello</h2>
-      <h2>Hello</h2>
-      <h2>Hello</h2>
-      <h2>Hello</h2>
-      <h2>Hello</h2>
-      <h2>Hello</h2>
-      <h2>Hello</h2>
-      <h2>Hello</h2>
-      <h2>Hello</h2>
-      <h2>Hello</h2>
-      <h2>Hello</h2>
-      
+      <ImgSlider>
+      </ImgSlider>
     </Container>
   );
 }
