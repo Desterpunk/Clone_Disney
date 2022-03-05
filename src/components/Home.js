@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ImgSlider from "./ImgSlider";
+import Viewers from "./Viewers";
 
 const Container = styled.main`
   position: relative;
@@ -23,8 +24,8 @@ const Container = styled.main`
 function Home() {
   return (
     <Container>
-      <ImgSlider>
-      </ImgSlider>
+      <ImgSlider />
+      <Viewers />
     </Container>
   );
 }
