@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { selectUserName } from "../features/user/userSlice";
+import { auth } from "../firebase";
 
 const Container = styled.section`
   overflow: hidden;
@@ -85,6 +89,19 @@ const CTALogoTwo = styled.img`
 `;
 
 function Login() {
+
+  const history = useHistory();
+  const userName = useSelector(selectUserName);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        history.push("/home")
+      }
+    });
+    //eslint-disable-next-line
+  }, [userName]);
+
   return (
     <Container>
       <Content>
