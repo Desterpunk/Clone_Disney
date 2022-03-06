@@ -1,13 +1,13 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_FB_KEY,
-  authDomain: process.env.REACT_APP_FB_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FB_DATABASE_URL,
-  storageBucket: process.env.REACT_APP_FB_PROJECT_ID,
-  messagingSenderId: process.env.REACT_APP_FB_STORAGE_BUCKET,
-  appId: process.env.REACT_APP_FB_MESSAGING_SENDER_ID,
-  measurementId: process.env.REACT_APP_HOST_API,
+  apiKey: "AIzaSyA8Pp1eKV-c5e5zveEwkchq178AqKSaYCw",
+  authDomain: "disney-clone-492b4.firebaseapp.com",
+  projectId: "disney-clone-492b4",
+  storageBucket: "disney-clone-492b4.appspot.com",
+  messagingSenderId: "1041644896161",
+  appId: "1:1041644896161:web:5f3c49d1ba9818789a95e0",
+  measurementId: "G-MSLGRHH2WB"
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
