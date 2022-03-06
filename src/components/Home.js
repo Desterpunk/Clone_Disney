@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMovies } from "../features/movie/movieSlice";
 import { selectUserName } from "../features/user/userSlice";
 import { movies } from "../disneyPlusMoviesData";
+import NewDisney from "./NewDisney";
+import Originals from "./Originals";
+import Trending from "./Trending";
 
 const Container = styled.main`
   position: relative;
@@ -72,6 +75,9 @@ function Home() {
       <ImgSlider />
       <Viewers />
       <Recommends />
+      <NewDisney />
+      <Originals />
+      <Trending />
     </Container>
   );
 }
